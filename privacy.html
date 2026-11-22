@@ -79,6 +79,10 @@
   <p>Suggestions are kept, including closed ones, for as long as the app is installed, so the history and the Revert action remain available. Redline does not delete suggestions automatically. The only exception is that if saving a new suggestion fails part-way, the incomplete record and its comment are removed.</p>
   <p>When the app is uninstalled, its Forge storage for your site is deleted by Atlassian according to <a href="https://developer.atlassian.com/platform/forge/storage-reference/hosted-storage-data-lifecycle/">Atlassian Forge data retention rules</a>. The Confluence comments and page versions described above stay in Confluence. Drafts in a user's browser stay there until that user clears site data.</p>
 
+  <h2>Closed Atlassian accounts</h2>
+  <p>Redline takes part in Atlassian's <a href="https://developer.atlassian.com/platform/forge/user-privacy-guidelines/">personal data reporting</a>. Once a week it sends Atlassian the account IDs it stores (authors of suggestions and the people who accepted, rejected or reverted them), each with the time Redline last stored data about that person. Only account IDs and timestamps are sent; no suggestion text, page content or names.</p>
+  <p>When Atlassian reports that an account has been closed, Redline replaces that account ID in every stored suggestion with the placeholder <code>deleted-user</code>, and the Redline panel and the <em>Redline reviews</em> page show the person as “Former user”. The suggestions themselves stay, so the page history remains understandable. When Atlassian reports that an account's details have changed, Redline does nothing, because it stores no names, avatars or other profile data.</p>
+  <p>This applies to Redline's own storage. Inline comments and page versions are Confluence content and are handled by Confluence.</p>
   <h2>Logs</h2>
   <p>Redline writes diagnostic logs to Forge's logging service (<code>forge logs</code>). Atlassian keeps these logs for a limited period and makes them available to the developer through the Atlassian developer console, subject to your site's log access settings. Log entries can contain:</p>
   <ul>
