@@ -41,3 +41,6 @@ th, td { text-align: left; vertical-align: top; padding: 6px 10px; border-bottom
 th { color: var(--muted); font-weight: 600; }
 .note { border-left: 3px solid var(--accent); padding: 4px 12px; background: var(--code-bg); }
 footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; padding-top: 12px; padding-bottom: 32px; }
+figure.demo { margin: 16px 0 24px; }
+figure.demo img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 4px; }
+figure.demo figcaption { color: var(--muted); font-size: 14px; margin-top: 6px; }

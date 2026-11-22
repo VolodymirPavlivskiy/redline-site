@@ -37,6 +37,11 @@
   </ol>
   <p>Redline adds a Confluence inline comment that starts with “Redline suggestion:” on the selected text, so page watchers are notified as usual. The page itself does not change until someone accepts the suggestion.</p>
 
+  <figure class="demo">
+    <img src="img/redline-01-suggest-edit.gif" alt="Selecting text on a Confluence page and suggesting an edit with Redline" width="1512" height="805" loading="lazy">
+    <figcaption>Selecting text and suggesting an edit.</figcaption>
+  </figure>
+
   <h3>When the text appears more than once</h3>
   <p>If the selected phrase appears several times on the page, Redline asks which occurrence you meant. You can filter the list by the surrounding text, or choose <strong>Replace all</strong> to change every occurrence (up to 200, and without a block-type change). <strong>Whole words only</strong> is on by default: occurrences inside longer words are skipped. Clear it if you want those included.</p>
 
@@ -57,11 +62,26 @@
   <p><strong>Accept</strong> applies the change to the page as a new page version, made in your name, and resolves the inline comment. If the text under the comment was edited after the suggestion was made, Redline shows the old and current text and asks you to confirm with <strong>Accept anyway</strong>.</p>
   <p>Resolving the suggestion's inline comment in Confluence also counts as accepting it, on behalf of the person who resolved it. Redline checks comments every 5 minutes, so this can take up to 5 minutes to show. If that person cannot edit the page, the change is not applied and the card says so.</p>
 
+  <figure class="demo">
+    <img src="img/redline-02-review-accept.gif" alt="Reviewing a suggestion in the Redline panel and accepting it" width="1538" height="784" loading="lazy">
+    <figcaption>Reviewing a suggestion and accepting it.</figcaption>
+  </figure>
+
   <h3>Reject</h3>
   <p><strong>Reject</strong> closes the suggestion without changing the page and resolves the inline comment. The page then reloads, so the highlight and the open count under the title update.</p>
 
+  <figure class="demo">
+    <img src="img/redline-03-reject.gif" alt="Rejecting a suggestion in the Redline panel" width="1538" height="784" loading="lazy">
+    <figcaption>Rejecting a suggestion.</figcaption>
+  </figure>
+
   <h3>Revert</h3>
   <p><strong>Revert</strong> undoes an accepted change as a new page version. The suggestion is closed with the status <em>reverted</em>, and its inline comment stays resolved, so the text is not highlighted again. If the applied text has been edited since then, Redline does not overwrite it. The suggestion is marked <em>revert failed</em>, and you can try again or choose <strong>Keep as is</strong>.</p>
+
+  <figure class="demo">
+    <img src="img/redline-04-revert.gif" alt="Reverting an accepted suggestion in the Redline panel" width="1538" height="784" loading="lazy">
+    <figcaption>Reverting an accepted change.</figcaption>
+  </figure>
 
   <h3>Old Redline comments without a suggestion</h3>
   <p>Below the list you may see a collapsed line such as “3 old Redline comments without a suggestion · Show”. These are Redline inline comments on the page that have nothing left to review: their suggestion is already closed, or its data no longer exists (for example, after the app was reinstalled). Click <strong>Show</strong> to list them. <strong>Dismiss</strong> resolves the comment and removes its highlight from the page; <strong>Show on page</strong> opens the comment. Only people who can edit the page can dismiss comments.</p>
@@ -82,6 +102,11 @@
 
   <h2>The “Redline reviews” page</h2>
   <p>Open <strong>Apps → Redline reviews</strong> in Confluence to see <strong>Awaiting my review</strong>: suggestions across the site on pages you can edit. You can filter by status, space key and author, and accept or reject suggestions directly from the list. Choose another status, or <strong>all</strong>, to see suggestions that are already closed.</p>
+
+  <figure class="demo">
+    <img src="img/redline-05-reviews-page.gif" alt="The Redline reviews page listing suggested edits on pages the user can edit" width="1538" height="784" loading="lazy">
+    <figcaption>The Redline reviews page.</figcaption>
+  </figure>
 
   <h2>Permissions</h2>
   <table>
