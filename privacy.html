@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redline Privacy Policy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html">Redline</a>
+  <nav>
+    <a href="docs.html">Documentation</a>
+    <a href="privacy.html" aria-current="page">Privacy</a>
+    <a href="support.html">Support</a>
+  </nav>
+</header>
+<main>
+  <h1>Privacy policy</h1>
+  <p class="updated">Last updated: 22 November 2026</p>
+
+  <p>This policy describes what the Redline app for Confluence Cloud stores, where it stores it and who can see it. It covers only what the app itself does. Confluence and the Atlassian platform are covered by <a href="https://www.atlassian.com/legal/privacy-policy">Atlassian's privacy policy</a>.</p>
+
+  <h2>Summary</h2>
+  <ul>
+    <li>Redline runs entirely on Atlassian Forge. It has no servers of its own and sends no data outside your Atlassian site.</li>
+    <li>It stores suggestions in Forge storage that belongs to your site's installation of the app.</li>
+    <li>People are identified only by their Atlassian account ID. Redline does not store names, email addresses or avatars.</li>
+    <li>App logs contain IDs and error codes. They do not contain suggestion text, comments or page content.</li>
+  </ul>
+
+  <h2>Where data is stored</h2>
+  <p>All app data is stored in <a href="https://developer.atlassian.com/platform/forge/storage/">Forge storage</a>, which Atlassian hosts for each installation of the app. Redline's manifest declares no external fetch permissions (egress) and no remote back ends. The app's code only calls the Confluence REST API of the site where it is installed, on behalf of the signed-in user.</p>
+
+  <h2>What Redline stores</h2>
+
+  <h3>Suggestions (Forge storage)</h3>
+  <p>Each suggestion is one record of the custom entity <code>suggestion</code>, stored under the key <code>&lt;pageId&gt;:&lt;suggestionId&gt;</code>. A record can contain the following attributes.</p>
+  <table>
+    <tr><th>Group</th><th>Attributes</th><th>What it is</th></tr>
+    <tr><td>Location</td><td><code>id</code>, <code>pageId</code>, <code>spaceKey</code>, <code>pageTitle</code>, <code>commentId</code>, <code>markerRef</code>, <code>location</code>, <code>section</code></td><td>The suggestion ID, the page and space it belongs to, the page title, the ID of the Confluence inline comment created for it, and the block type and heading it sits under.</td></tr>
+    <tr><td>Suggested change</td><td><code>exact</code>, <code>prefix</code>, <code>suffix</code>, <code>replacement</code>, <code>comment</code>, <code>kind</code>, <code>format</code>, <code>marks</code>, <code>blockType</code>, <code>blockRecord</code>, <code>emptyFields</code></td><td>The selected text and a short amount of text around it, the proposed new text, the optional comment, and any proposed formatting or block-type change.</td></tr>
+    <tr><td>Applying and reverting</td><td><code>originalNodes</code>, <code>appliedNodes</code>, <code>insertedText</code>, <code>anchorAfter</code>, <code>targets</code>, <code>conflictTargets</code>, <code>matchIndex</code>, <code>matchCount</code>, <code>replaceAll</code>, <code>twins</code></td><td>Copies of the affected page fragment before and after the change, so the change can be reverted, and which occurrences of the text the suggestion affects.</td></tr>
+    <tr><td>People</td><td><code>author</code>, <code>resolvedBy</code>, <code>revertedBy</code>, <code>conflictBy</code></td><td>Atlassian account IDs of the person who made the suggestion and the people who accepted, rejected or reverted it.</td></tr>
+    <tr><td>Status and history</td><td><code>status</code>, <code>createdAt</code>, <code>pageVersion</code>, <code>resolvedAt</code>, <code>acceptedInVersion</code>, <code>revertedAt</code>, <code>revertedInVersion</code>, <code>conflictReason</code>, <code>conflictAt</code>, <code>conflictAction</code>, <code>lockedAt</code>, <code>events</code></td><td>The status (open, accepted, rejected, conflict, reverted), timestamps, page version numbers and a short history. <code>events</code> keeps the 20 most recent entries, each with an event name, a timestamp and an account ID.</td></tr>
+  </table>
+  <p>The attribute <code>commentPending</code> exists in the storage schema but is not used.</p>
+
+  <h3>Other Forge storage keys</h3>
+  <ul>
+    <li><code>migration:suggestion-entity-v1</code>: a flag with a timestamp and a count, recording that suggestions from older app versions were moved to the format above.</li>
+    <li><code>sugg:*</code>: the format used by older app versions. Redline moves these records to the current format and then deletes them.</li>
+  </ul>
+
+  <h3>In the user's browser</h3>
+  <ul>
+    <li><strong>Unsent drafts (localStorage).</strong> While someone fills in the Suggest edit form, Redline saves what they have entered in their own browser, under the key <code>redline:draft:&lt;pageId&gt;:&lt;first 200 characters of the selected text&gt;</code>. This lets them restore the draft if the form closes by accident. The draft is deleted when the suggestion is sent, when they discard it or when they clear the form. Redline ignores drafts older than 24 hours, but they stay in the browser until they are overwritten or the user clears site data. Drafts never leave the browser.</li>
+    <li><strong>Reload marker (sessionStorage).</strong> The key <code>redline:reloaded</code> holds up to 50 suggestion IDs, so that the page is not reloaded twice after the same change. The browser clears it when the tab is closed.</li>
+  </ul>
+
+  <h3>In Confluence itself</h3>
+  <p>Redline also writes ordinary Confluence content, on behalf of the user who performs each action:</p>
+  <ul>
+    <li>an inline comment for each suggestion, starting with “Redline suggestion:”, created by the suggestion's author, then resolved or reopened as the suggestion changes status;</li>
+    <li>page edits when a suggestion is accepted or reverted, saved as new page versions with the version message “Redline: accepted suggestion” or “Redline: reverted suggestion”.</li>
+  </ul>
+  <p>This content belongs to your Confluence site, follows your site's permissions and stays there if the app is removed.</p>
+
+  <h3>What Redline does not store</h3>
+  <p>Redline does not store names, email addresses, avatars or any other profile data. Confluence displays names from account IDs when a page is shown. Redline does not use analytics, tracking or cookies.</p>
+
+  <h2>Who can see the data</h2>
+  <ul>
+    <li><strong>Users of your site.</strong> Anyone who can view a page can see the suggestions on it in the Redline panel, with their text, status and author. Only people who can edit the page can accept, reject or revert them. The <em>Redline reviews</em> page lists suggestions only on pages the viewer can edit.</li>
+    <li><strong>The app's back end.</strong> Forge storage can only be read by Redline's own functions running on Atlassian's infrastructure, within your installation.</li>
+    <li><strong>The developer.</strong> Redline has no feature that sends stored data to the developer, and Forge does not give app developers direct access to the storage of a customer's installation. The developer can see app logs, described below.</li>
+  </ul>
+
+  <h2>How long data is kept</h2>
+  <p>Suggestions are kept, including closed ones, for as long as the app is installed, so the history and the Revert action remain available. Redline does not delete suggestions automatically. The only exception is that if saving a new suggestion fails part-way, the incomplete record and its comment are removed.</p>
+  <p>When the app is uninstalled, its Forge storage for your site is deleted by Atlassian according to <a href="https://developer.atlassian.com/platform/forge/storage-reference/hosted-storage-data-lifecycle/">Atlassian Forge data retention rules</a>. The Confluence comments and page versions described above stay in Confluence. Drafts in a user's browser stay there until that user clears site data.</p>
+
+  <h2>Logs</h2>
+  <p>Redline writes diagnostic logs to Forge's logging service (<code>forge logs</code>). Atlassian keeps these logs for a limited period and makes them available to the developer through the Atlassian developer console, subject to your site's log access settings. Log entries can contain:</p>
+  <ul>
+    <li>the name of the action performed and its result code;</li>
+    <li>Atlassian account IDs, page IDs, space keys, suggestion IDs and comment IDs;</li>
+    <li>the field names (not the values) sent by the app's interface;</li>
+    <li>error messages, including shortened error responses from Confluence (up to 500 characters), which normally contain only an error description.</li>
+  </ul>
+  <p>Logs do not contain suggestion text, replacement text, comments or page content.</p>
+
+  <h2>Your requests</h2>
+  <p>Site administrators can remove all of Redline's stored data by uninstalling the app. To ask about the data Redline stores, or to request help deleting specific suggestions, contact <a href="mailto:support@redline-inc.com">support@redline-inc.com</a>. For data held by Confluence itself, contact your site administrator or Atlassian.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If a future version of Redline changes what it stores or where, this page will be updated before that version is released, and the date at the top will change.</p>
+</main>
+<footer>Questions: <a href="mailto:support@redline-inc.com">support@redline-inc.com</a></footer>
+</body>
+</html>

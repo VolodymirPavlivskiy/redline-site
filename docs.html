@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redline Documentation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html">Redline</a>
+  <nav>
+    <a href="docs.html" aria-current="page">Documentation</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="support.html">Support</a>
+  </nav>
+</header>
+<main>
+  <h1>How to use Redline</h1>
+  <p>Redline lets anyone who can read a Confluence page suggest a change to its text. People who can edit the page review each suggestion and apply it with one click.</p>
+
+  <h2>Installation</h2>
+  <ol>
+    <li>A Confluence site administrator installs Redline from the Atlassian Marketplace.</li>
+    <li>No configuration is needed. Redline appears on every page as an item in the page byline (under the title) and as <strong>Suggest edit</strong> in the text selection menu.</li>
+  </ol>
+  <p>Redline is available in English and German and follows each user's Confluence language.</p>
+
+  <h2>Suggest an edit</h2>
+  <ol>
+    <li>On a published page, select the text you want to change. The selection must be within a single paragraph, list item or table cell.</li>
+    <li>In the toolbar that appears, click <strong>…</strong>, then <strong>Apps → Suggest edit</strong>.</li>
+    <li>Enter the new text in <strong>With</strong>, or leave it empty to suggest deleting the text. You can also change the formatting (bold, italic, underline, strikethrough, inline code, text colour) or the block type (normal text, heading 1–6, quote, code block).</li>
+    <li>Optionally add a comment for the reviewer.</li>
+    <li>Click <strong>Suggest</strong>.</li>
+  </ol>
+  <p>Redline adds a Confluence inline comment that starts with “Redline suggestion:” on the selected text, so page watchers are notified as usual. The page itself does not change until someone accepts the suggestion.</p>
+
+  <h3>When the text appears more than once</h3>
+  <p>If the selected phrase appears several times on the page, Redline asks which occurrence you meant. You can filter the list by the surrounding text, or choose <strong>Replace all</strong> to change every occurrence (up to 200, and without a block-type change). <strong>Whole words only</strong> is on by default: occurrences inside longer words are skipped. Clear it if you want those included.</p>
+
+  <h3>Drafts</h3>
+  <p>If the form closes before you send it, for example after a click outside it, your input is kept in your browser for 24 hours. Select the same text again to restore it.</p>
+
+  <h3>Limits</h3>
+  <ul>
+    <li>Selected text: up to 2,000 characters.</li>
+    <li>New text: up to 5,000 characters.</li>
+    <li>Comment: up to 2,000 characters.</li>
+  </ul>
+
+  <h2>Review suggestions</h2>
+  <p>Click <strong>Redline</strong> in the page byline. When suggestions are waiting, the byline shows how many, for example “Redline · 3 open”. The panel lists the suggestions on the page, with open ones first. Closed suggestions are available under <strong>Show closed</strong>.</p>
+
+  <h3>Accept</h3>
+  <p><strong>Accept</strong> applies the change to the page as a new page version, made in your name, and resolves the inline comment. If the text under the comment was edited after the suggestion was made, Redline shows the old and current text and asks you to confirm with <strong>Accept anyway</strong>.</p>
+  <p>Resolving the suggestion's inline comment in Confluence also counts as accepting it, on behalf of the person who resolved it. Redline checks comments every 5 minutes, so this can take up to 5 minutes to show. If that person cannot edit the page, the change is not applied and the card says so.</p>
+
+  <h3>Reject</h3>
+  <p><strong>Reject</strong> closes the suggestion without changing the page and resolves the inline comment.</p>
+
+  <h3>Revert</h3>
+  <p><strong>Revert</strong> undoes an accepted change as a new page version and reopens the inline comment. If the applied text has been edited since then, Redline does not overwrite it. The suggestion is marked <em>revert failed</em>, and you can try again or choose <strong>Keep as is</strong>.</p>
+
+  <h3>Show on page</h3>
+  <p><strong>Show on page</strong> opens the page with the suggestion's inline comment selected.</p>
+
+  <h2>Statuses</h2>
+  <table>
+    <tr><th>Status</th><th>Meaning</th></tr>
+    <tr><td>open</td><td>Waiting for review.</td></tr>
+    <tr><td>accepted</td><td>The change was applied to the page.</td></tr>
+    <tr><td>rejected</td><td>The suggestion was closed without changing the page.</td></tr>
+    <tr><td>reverted</td><td>The change was applied and later undone.</td></tr>
+    <tr><td>conflict</td><td>The change couldn't be applied, for example because the text is no longer on the page, its exact place can't be determined, or it crosses a mention or emoji. The card explains the reason. Where possible you can choose the place to apply it, try again or reject it.</td></tr>
+    <tr><td>revert failed</td><td>Revert couldn't undo the change because the applied text has changed since. The change is still on the page.</td></tr>
+  </table>
+
+  <h2>The “Redline reviews” page</h2>
+  <p>Open <strong>Apps → Redline reviews</strong> in Confluence to see <strong>Awaiting my review</strong>: suggestions across the site on pages you can edit. You can filter by status, space key and author, and accept or reject suggestions directly from the list.</p>
+
+  <h2>Permissions</h2>
+  <table>
+    <tr><th>Who</th><th>What they can do</th></tr>
+    <tr><td>Can view the page</td><td>Suggest edits. See all suggestions on the page, with their text, status and author.</td></tr>
+    <tr><td>Can edit the page</td><td>Everything above, plus Accept, Reject and Revert. See the page's suggestions in <em>Redline reviews</em>.</td></tr>
+  </table>
+  <p>Redline uses Confluence's own permissions. Every action runs as the signed-in user, so Confluence checks access the same way it does in its own interface.</p>
+
+  <h2 id="known-limitations">Known limitations</h2>
+  <ul>
+    <li><strong>Published pages only.</strong> Suggestions work on the published version of a page. If the page was just edited, reload it before selecting text.</li>
+    <li><strong>Plain text selections.</strong> The selection can't include mentions, emoji, line breaks or other non-text elements, and must stay within one paragraph, list item or table cell.</li>
+    <li><strong>Whole words only.</strong> With this option on (the default), Replace all skips occurrences inside longer words.</li>
+    <li><strong>Show on page doesn't always scroll.</strong> Confluence opens the inline comment, but whether the page scrolls to it is up to Confluence. Redline runs in a sandboxed frame and can't scroll the page itself.</li>
+    <li><strong>Resolving a comment is detected with a delay.</strong> Confluence sends no event when an inline comment is resolved, so Redline checks every 5 minutes.</li>
+    <li><strong>Some formatting combinations aren't possible</strong>, such as inline code with other formatting, or a block-type change in a task or decision.</li>
+    <li><strong>Older suggestions.</strong> Suggestions accepted before the Revert feature was added can't be reverted.</li>
+  </ul>
+</main>
+<footer>Need help? See <a href="support.html">Support</a>.</footer>
+</body>
+</html>
