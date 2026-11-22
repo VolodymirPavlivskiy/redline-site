@@ -27,6 +27,7 @@
   <p>Redline is available in English and German and follows each user's Confluence language.</p>
 
   <h2>Suggest an edit</h2>
+  <p>To suggest edits you need permission to view and comment on the page. Without permission to comment, Suggest edit shows “You need permission to comment on this page to suggest edits.” and the form doesn't open.</p>
   <ol>
     <li>On a published page, select the text you want to change. The selection must be within a single paragraph, list item or table cell.</li>
     <li>In the toolbar that appears, click <strong>…</strong>, then <strong>Apps → Suggest edit</strong>.</li>
@@ -34,7 +35,7 @@
     <li>Optionally add a comment for the reviewer.</li>
     <li>Click <strong>Suggest</strong>.</li>
   </ol>
-  <p>Redline adds a Confluence inline comment that starts with “Redline suggestion:” on the selected text, so page watchers are notified as usual. If you aren't allowed to comment on the page, the suggestion is still saved and appears in the Redline panel, but without an inline comment: the text is not highlighted and nobody is notified. The page itself does not change until someone accepts the suggestion.</p>
+  <p>Redline adds a Confluence inline comment that starts with “Redline suggestion:” on the selected text, so page watchers are notified as usual. The page itself does not change until someone accepts the suggestion.</p>
 
   <h3>When the text appears more than once</h3>
   <p>If the selected phrase appears several times on the page, Redline asks which occurrence you meant. You can filter the list by the surrounding text, or choose <strong>Replace all</strong> to change every occurrence (up to 200, and without a block-type change). <strong>Whole words only</strong> is on by default: occurrences inside longer words are skipped. Clear it if you want those included.</p>
@@ -85,8 +86,8 @@
   <h2>Permissions</h2>
   <table>
     <tr><th>Who</th><th>What they can do</th></tr>
-    <tr><td>Can view and comment on the page</td><td>Suggest edits. Each suggestion gets an inline comment on the page. See all suggestions on the page, with their text, status and author.</td></tr>
-    <tr><td>Can view but not comment</td><td>Suggest edits, but the suggestion is saved without an inline comment, so the text isn't highlighted and page watchers aren't notified. Reviewers find it in the Redline panel. See all suggestions on the page, like everyone else.</td></tr>
+    <tr><td>Can view only</td><td>See all suggestions on the page, with their text, status and author. Can't suggest edits.</td></tr>
+    <tr><td>Can view and comment on the page</td><td>Everything above, plus suggest edits. Each suggestion is added as an inline comment on the page.</td></tr>
     <tr><td>Can edit the page</td><td>Everything above, plus Accept, Reject and Revert. See the page's suggestions in <em>Redline reviews</em>.</td></tr>
   </table>
   <p>Redline uses Confluence's own permissions. Every action runs as the signed-in user, so Confluence checks access the same way it does in its own interface.</p>
