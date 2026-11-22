@@ -34,7 +34,7 @@
     <li>Optionally add a comment for the reviewer.</li>
     <li>Click <strong>Suggest</strong>.</li>
   </ol>
-  <p>Redline adds a Confluence inline comment that starts with “Redline suggestion:” on the selected text, so page watchers are notified as usual. The page itself does not change until someone accepts the suggestion.</p>
+  <p>Redline adds a Confluence inline comment that starts with “Redline suggestion:” on the selected text, so page watchers are notified as usual. If you aren't allowed to comment on the page, the suggestion is still saved and appears in the Redline panel, but without an inline comment: the text is not highlighted and nobody is notified. The page itself does not change until someone accepts the suggestion.</p>
 
   <h3>When the text appears more than once</h3>
   <p>If the selected phrase appears several times on the page, Redline asks which occurrence you meant. You can filter the list by the surrounding text, or choose <strong>Replace all</strong> to change every occurrence (up to 200, and without a block-type change). <strong>Whole words only</strong> is on by default: occurrences inside longer words are skipped. Clear it if you want those included.</p>
@@ -50,7 +50,7 @@
   </ul>
 
   <h2>Review suggestions</h2>
-  <p>Click <strong>Redline</strong> in the page byline. When suggestions are waiting, the byline shows how many, for example “Redline · 3 open”. The panel lists the suggestions on the page, with open ones first. Closed suggestions are available under <strong>Show closed</strong>.</p>
+  <p>Click <strong>Redline</strong> in the page byline. When suggestions are waiting, the byline shows how many, for example “Redline · 3 open”. The panel lists the suggestions on the page under two tabs: <strong>Open (N)</strong> shows the suggestions waiting for review (open, conflict and revert failed), and <strong>All (N)</strong> shows every suggestion on the page, with the ones waiting for review first. A suggestion you have just acted on stays in the Open tab until you close the panel, so you can see the result.</p>
 
   <h3>Accept</h3>
   <p><strong>Accept</strong> applies the change to the page as a new page version, made in your name, and resolves the inline comment. If the text under the comment was edited after the suggestion was made, Redline shows the old and current text and asks you to confirm with <strong>Accept anyway</strong>.</p>
@@ -82,7 +82,8 @@
   <h2>Permissions</h2>
   <table>
     <tr><th>Who</th><th>What they can do</th></tr>
-    <tr><td>Can view the page</td><td>Suggest edits. See all suggestions on the page, with their text, status and author.</td></tr>
+    <tr><td>Can view and comment on the page</td><td>Suggest edits. Each suggestion gets an inline comment on the page. See all suggestions on the page, with their text, status and author.</td></tr>
+    <tr><td>Can view but not comment</td><td>Suggest edits, but the suggestion is saved without an inline comment, so the text isn't highlighted and page watchers aren't notified. Reviewers find it in the Redline panel. See all suggestions on the page, like everyone else.</td></tr>
     <tr><td>Can edit the page</td><td>Everything above, plus Accept, Reject and Revert. See the page's suggestions in <em>Redline reviews</em>.</td></tr>
   </table>
   <p>Redline uses Confluence's own permissions. Every action runs as the signed-in user, so Confluence checks access the same way it does in its own interface.</p>
@@ -95,7 +96,6 @@
     <li><strong>Show on page doesn't always scroll.</strong> Confluence opens the inline comment, but whether the page scrolls to it is up to Confluence. Redline runs in a sandboxed frame and can't scroll the page itself.</li>
     <li><strong>Resolving a comment is detected with a delay.</strong> Confluence sends no event when an inline comment is resolved, so Redline checks every 5 minutes.</li>
     <li><strong>Some formatting combinations aren't possible</strong>, such as inline code with other formatting, or a block-type change in a task or decision.</li>
-    <li><strong>Older suggestions.</strong> Suggestions accepted before the Revert feature was added can't be reverted.</li>
   </ul>
 </main>
 <footer>Need help? See <a href="support.html">Support</a>.</footer>
