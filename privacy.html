@@ -28,7 +28,7 @@
   <ul>
     <li>Redline runs entirely on Atlassian Forge. It has no servers of its own and sends no data outside your Atlassian site.</li>
     <li>It stores suggestions in Forge storage that belongs to your site's installation of the app.</li>
-    <li>People are identified only by their Atlassian account ID. Redline does not store names, email addresses or avatars.</li>
+    <li>People are identified by their Atlassian account ID. Redline does not collect names, email addresses or avatars, but the page text and reviewer comments it stores can contain names or @mentions.</li>
     <li>App logs contain IDs and error codes. They do not contain suggestion text, comments or page content.</li>
   </ul>
 
@@ -41,12 +41,13 @@
   <p>Each suggestion is one record of the custom entity <code>suggestion</code>, stored under the key <code>&lt;pageId&gt;:&lt;suggestionId&gt;</code>. A record can contain the following attributes.</p>
   <table>
     <tr><th>Group</th><th>Attributes</th><th>What it is</th></tr>
-    <tr><td>Location</td><td><code>id</code>, <code>pageId</code>, <code>spaceKey</code>, <code>pageTitle</code>, <code>commentId</code>, <code>markerRef</code>, <code>location</code>, <code>section</code></td><td>The suggestion ID, the page and space it belongs to, the page title, the ID of the Confluence inline comment created for it, and the block type and heading it sits under.</td></tr>
-    <tr><td>Suggested change</td><td><code>exact</code>, <code>prefix</code>, <code>suffix</code>, <code>replacement</code>, <code>comment</code>, <code>kind</code>, <code>format</code>, <code>marks</code>, <code>blockType</code>, <code>blockRecord</code>, <code>emptyFields</code></td><td>The selected text and a short amount of text around it, the proposed new text, the optional comment, and any proposed formatting or block-type change.</td></tr>
+    <tr><td>Location</td><td><code>id</code>, <code>pageId</code>, <code>spaceKey</code>, <code>pageTitle</code>, <code>commentId</code>, <code>markerRef</code>, <code>location</code>, <code>section</code></td><td>The suggestion ID, the page and space it belongs to (for a personal space, the space key contains the owner's account ID), the page title, the ID of the Confluence inline comment created for it, and the block type and heading it sits under.</td></tr>
+    <tr><td>Suggested change</td><td><code>exact</code>, <code>prefix</code>, <code>suffix</code>, <code>replacement</code>, <code>comment</code>, <code>kind</code>, <code>format</code>, <code>marks</code>, <code>blockType</code>, <code>blockRecord</code>, <code>emptyFields</code></td><td>The selected text and a short amount of text around it, the proposed new text, the optional comment, and any proposed formatting or block-type change. For a block-type change, full copies of the block are kept, including any @mentions in it.</td></tr>
     <tr><td>Applying and reverting</td><td><code>originalNodes</code>, <code>appliedNodes</code>, <code>insertedText</code>, <code>anchorAfter</code>, <code>targets</code>, <code>conflictTargets</code>, <code>matchIndex</code>, <code>matchCount</code>, <code>replaceAll</code>, <code>twins</code></td><td>Copies of the affected page fragment before and after the change, so the change can be reverted, and which occurrences of the text the suggestion affects.</td></tr>
     <tr><td>People</td><td><code>author</code>, <code>resolvedBy</code>, <code>revertedBy</code>, <code>conflictBy</code></td><td>Atlassian account IDs of the person who made the suggestion and the people who accepted, rejected or reverted it.</td></tr>
     <tr><td>Status and history</td><td><code>status</code>, <code>createdAt</code>, <code>pageVersion</code>, <code>resolvedAt</code>, <code>acceptedInVersion</code>, <code>revertedAt</code>, <code>revertedInVersion</code>, <code>conflictReason</code>, <code>conflictAt</code>, <code>conflictAction</code>, <code>lockedAt</code>, <code>events</code></td><td>The status (open, accepted, rejected, conflict, reverted), timestamps, page version numbers and a short history. <code>events</code> keeps the 20 most recent entries, each with an event name, a timestamp and an account ID.</td></tr>
   </table>
+  <p>Page fragments, surrounding text and reviewer comments are stored as written. They can therefore contain people's names, other personal details that someone typed on the page, or @mentions, which include the mentioned person's account ID.</p>
 
   <h3>Other Forge storage keys</h3>
   <ul>
@@ -69,7 +70,7 @@
   <p>This content belongs to your Confluence site, follows your site's permissions and stays there if the app is removed.</p>
 
   <h3>What Redline does not store</h3>
-  <p>Redline does not store names, email addresses, avatars or any other profile data. Confluence displays names from account IDs when a page is shown. Redline does not use analytics, tracking or cookies.</p>
+  <p>Redline does not collect names, email addresses, avatars or any other profile data from Atlassian. Confluence displays names from account IDs when a page is shown. Redline does not use analytics, tracking or cookies.</p>
 
   <h2>Who can see the data</h2>
   <ul>
@@ -83,8 +84,8 @@
   <p>When the app is uninstalled, its Forge storage for your site is deleted by Atlassian according to <a href="https://developer.atlassian.com/platform/forge/storage-reference/hosted-storage-data-lifecycle/">Atlassian Forge data retention rules</a>. The Confluence comments and page versions described above stay in Confluence. Drafts in a user's browser stay there until that user clears site data.</p>
 
   <h2>Closed Atlassian accounts</h2>
-  <p>Redline takes part in Atlassian's <a href="https://developer.atlassian.com/platform/forge/user-privacy-guidelines/">personal data reporting</a>. Once a week it sends Atlassian the account IDs it stores (authors of suggestions and the people who accepted, rejected or reverted them), each with the time Redline last stored data about that person. Only account IDs and timestamps are sent; no suggestion text, page content or names.</p>
-  <p>When Atlassian reports that an account has been closed, Redline replaces that account ID in every stored suggestion with the placeholder <code>deleted-user</code>, and the Redline panel and the <em>Redline reviews</em> page show the person as “Former user”. The suggestions themselves stay, so the page history remains understandable. When Atlassian reports that an account's details have changed, Redline does nothing, because it stores no names, avatars or other profile data.</p>
+  <p>Redline takes part in Atlassian's <a href="https://developer.atlassian.com/platform/forge/user-privacy-guidelines/">personal data reporting</a>. Once a week it sends Atlassian the account IDs it stores (authors of suggestions, the people who accepted, rejected or reverted them, owners of personal spaces whose pages have suggestions, and people @mentioned in stored block copies), each with the time Redline last stored data about that person. Only account IDs and timestamps are sent; no suggestion text, page content or names.</p>
+  <p>When Atlassian reports that an account has been closed, Redline replaces that account ID in every stored suggestion with the placeholder <code>deleted-user</code>, and the Redline panel and the <em>Redline reviews</em> page show the person as “Former user”. An @mention of that person in a stored block copy is replaced with the text “Former user”, without the account ID. A personal space key is not changed, because it is the key Confluence uses for the space. The suggestions themselves stay, so the page history remains understandable. When Atlassian reports that an account's details have changed, Redline does nothing, because it keeps no profile data of its own to update.</p>
   <p>This applies to Redline's own storage. Inline comments and page versions are Confluence content and are handled by Confluence.</p>
   <h2>Logs</h2>
   <p>Redline writes diagnostic logs to Forge's logging service (<code>forge logs</code>). Atlassian keeps these logs for a limited period and makes them available to the developer through the Atlassian developer console, subject to your site's log access settings. Log entries can contain:</p>
