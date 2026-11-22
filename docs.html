@@ -58,10 +58,10 @@
   <p>Resolving the suggestion's inline comment in Confluence also counts as accepting it, on behalf of the person who resolved it. Redline checks comments every 5 minutes, so this can take up to 5 minutes to show. If that person cannot edit the page, the change is not applied and the card says so.</p>
 
   <h3>Reject</h3>
-  <p><strong>Reject</strong> closes the suggestion without changing the page and resolves the inline comment.</p>
+  <p><strong>Reject</strong> closes the suggestion without changing the page and resolves the inline comment. The page then reloads, so the highlight and the open count under the title update.</p>
 
   <h3>Revert</h3>
-  <p><strong>Revert</strong> undoes an accepted change as a new page version and reopens the inline comment. If the applied text has been edited since then, Redline does not overwrite it. The suggestion is marked <em>revert failed</em>, and you can try again or choose <strong>Keep as is</strong>.</p>
+  <p><strong>Revert</strong> undoes an accepted change as a new page version. The suggestion is closed with the status <em>reverted</em>, and its inline comment stays resolved, so the text is not highlighted again. If the applied text has been edited since then, Redline does not overwrite it. The suggestion is marked <em>revert failed</em>, and you can try again or choose <strong>Keep as is</strong>.</p>
 
   <h3>Old Redline comments without a suggestion</h3>
   <p>Below the list you may see a collapsed line such as “3 old Redline comments without a suggestion · Show”. These are Redline inline comments on the page that have nothing left to review: their suggestion is already closed, or its data no longer exists (for example, after the app was reinstalled). Click <strong>Show</strong> to list them. <strong>Dismiss</strong> resolves the comment and removes its highlight from the page; <strong>Show on page</strong> opens the comment. Only people who can edit the page can dismiss comments.</p>
@@ -81,7 +81,7 @@
   </table>
 
   <h2>The “Redline reviews” page</h2>
-  <p>Open <strong>Apps → Redline reviews</strong> in Confluence to see <strong>Awaiting my review</strong>: suggestions across the site on pages you can edit. You can filter by status, space key and author, and accept or reject suggestions directly from the list.</p>
+  <p>Open <strong>Apps → Redline reviews</strong> in Confluence to see <strong>Awaiting my review</strong>: suggestions across the site on pages you can edit. You can filter by status, space key and author, and accept or reject suggestions directly from the list. Choose another status, or <strong>all</strong>, to see suggestions that are already closed.</p>
 
   <h2>Permissions</h2>
   <table>
@@ -99,6 +99,8 @@
     <li><strong>Whole words only.</strong> With this option on (the default), Replace all skips occurrences inside longer words.</li>
     <li><strong>Show on page doesn't always scroll.</strong> Confluence opens the inline comment, but whether the page scrolls to it is up to Confluence. Redline runs in a sandboxed frame and can't scroll the page itself.</li>
     <li><strong>Resolving a comment is detected with a delay.</strong> Confluence sends no event when an inline comment is resolved, so Redline checks every 5 minutes.</li>
+    <li><strong>An empty box behind the Suggest edit dialog.</strong> Confluence opens app dialogs from the selection menu inside a small container of its own. Redline keeps it as small as it can, but Confluence may still show it as an empty white box behind the dialog, especially when the selected text is in the lower half of the page. Closing that container would close the dialog too.</li>
+    <li><strong>Right after an update.</strong> When a Redline update adds new search options, Confluence prepares them for a few minutes. During that time <em>Redline reviews</em> may show “Search is being prepared after an update” for the <strong>all</strong> filter; the other statuses keep working.</li>
     <li><strong>Some formatting combinations aren't possible</strong>, such as inline code with other formatting, or a block-type change in a task or decision.</li>
   </ul>
 </main>
